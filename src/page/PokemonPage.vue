@@ -1,6 +1,9 @@
 <template>
     <h1>Who's that Pokémon?</h1>
-
+    
+    <div>
+        <h2>Hits in a row: {{ counter }}</h2>
+    </div>
     <div v-if="pokemon">
         <PokemonPicture  
             v-bind:pokemonId="pokemon.id" 
@@ -13,9 +16,9 @@
     <h2 v-else>Espere por favor...</h2>
 
     <div v-if="showAnswer">
-        <h3>Correct! Is {{ pokemon.name }}!</h3>
+        <h3>{{ message }}</h3>
+        <button @:click="newGame">Next Pokémon</button>
     </div>
-    <button @:click="newGame">New Game</button>
 </template>
 
 <script>
@@ -34,7 +37,8 @@
                 pokemon: null,
                 showPokemon: false,
                 showAnswer: false,
-                correct: false
+                message: '',
+                counter: 0
             }
         },
 
@@ -47,10 +51,19 @@
             },
 
             checkAnswer(id) {
-                if(!this.showPokemon && id === this.pokemon.id) {
+                if(!this.showPokemon ) {
+                    
+                    if(id === this.pokemon.id){
+                        this.message = `Correct! Is ${this.pokemon.name}!`
+                        this.counter++
+                        confetti()
+                    } else {
+                        this.message = `Oops! Is ${this.pokemon.name}!`
+                        this.counter = 0
+                    }
                     this.showAnswer = true
                     this.showPokemon = true
-                    confetti()
+                   
                 }
             },
 
