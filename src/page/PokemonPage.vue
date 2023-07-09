@@ -1,14 +1,21 @@
 <template>
     <h1>Who's that Pokémon?</h1>
-    <PokemonPicture v-if="pokemon" 
-        v-bind:pokemonId="pokemon.id" 
-        :showPokemon="showPokemon"/>
 
-    <PokemonOptions v-if="pokemon" 
-        :pokemons="pokemonArr"
-        @selection="checkAnswer($event)"/>
+    <div v-if="pokemon">
+        <PokemonPicture  
+            v-bind:pokemonId="pokemon.id" 
+            :showPokemon="showPokemon"/>
         
+        <PokemonOptions :pokemons="pokemonArr"
+            @selection="checkAnswer"/>
+            
+    </div>
     <h2 v-else>Espere por favor...</h2>
+
+    <div v-if="showAnswer">
+        <h3>Correct! Is {{ pokemon.name }}!</h3>
+    </div>
+    <button @:click="newGame">New Game</button>
 </template>
 
 <script>
@@ -25,8 +32,9 @@
             return {
                 pokemonArr: [],
                 pokemon: null,
-                showPokemon: false
-
+                showPokemon: false,
+                showAnswer: false,
+                correct: false
             }
         },
 
@@ -40,10 +48,19 @@
 
             checkAnswer(id) {
                 if(!this.showPokemon && id === this.pokemon.id) {
+                    this.showAnswer = true
                     this.showPokemon = true
                     confetti()
                 }
             },
+
+            newGame() {
+                this.showPokemon = false
+                this.pokemon = null
+                this.showAnswer = false
+                this.mixPokemonArr()
+            }
+
 
         },
 
