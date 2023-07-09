@@ -39,7 +39,7 @@
             },
 
             checkAnswer(id) {
-                if(id === this.pokemon.id){
+                if(!this.showPokemon && id === this.pokemon.id) {
                     this.showPokemon = true
                     confetti()
                 }
