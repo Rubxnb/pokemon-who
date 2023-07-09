@@ -1,0 +1,19 @@
+/* Pokemon Picture */
+.pokemon-container {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+img {
+    height: 200px;
+    position: absolute;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+.hidden-pokemon {
+    filter: brightness(0);
+}
+
