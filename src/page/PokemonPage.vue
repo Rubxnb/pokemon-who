@@ -2,7 +2,7 @@
     <h1>Who's that Pokémon?</h1>
     
     <div>
-        <h2>Hits in a row: {{ counter }}</h2>
+        <h2>Pokémon in a row: {{ counter }}</h2>
     </div>
     <div v-if="pokemon">
         <PokemonPicture  
